@@ -1,40 +1,72 @@
 # Sample Api Test Demo
+This project is incomplete and serves only as starter demo for a potential API automation test framework using:
+- Java (JDK 17)
+- Maven
+- Junit 5
+
+The publicly available, free, hosted apis for test chosen are as at: https://reqres.in/
 
 # Getting Started
-TODO - basic setup instructions for interested parties
+- Ensure JDK 17 or higher is installed (or modify the pom.xml - may be able to execute on lower versions)
+- Ensure Maven is installed and configured - this project used version 3.8.1
+- Make sure the executing machine has access to the public api under test: https://reqres.in/api/users
+
+- Run:
+
+| command                      | output                                                              |
+|------------------------------|---------------------------------------------------------------------|
+| `mvn test `                  | produces a .txt and an .xml report under `/target/surefire-reports` |
+| `mvn surefire-report:report` | produces the above + a surefire .html `report under target/site`    |
+
+* NOTE: a deliberately failing test is included so that the report can show more meaningful outcomes. 
+
+## Status & Roadmap
+Due to time limitations this project is paused and incomplete.   
+Some key design decisions thus far are noted in the relevant code areas - java / pom files.  
+In particular, the `UsersApiTestSuite` [UsersApiTestSuite](./src/test/java/reqres/UsersApiTestSuite.java) documents some of the test features.
+
+There are many improvements and extensions I would add to the framework given time- highlights as follows:
+
+### Framework Improvements
+- Introduce **environment configuration** such as `dotenv` good practice for extracting environment variables to a .env file that is never committed to the repository
+    - enhances security,
+    - enables managing different environment dependencies as code,
+    - and prepares the codebase for pipeline execution where such details are managed by the pipeline
 
 
-# Next Steps 
+- Introduce better **reporting** (the current use of surefire html is very limited) 
+  - replace the LogWrapper implementation with fully integrated Junit5 logging that also preserves artifacts as output
+  - output the request and response details as artifacts in addition to the test log for easy defect raising and triage support
 
+  
+- Introduce **pipeline**
+  - Run on demand, with environment setup by the pipeline such a gitlab .yaml or Jenkinsfile for a hosted server
+  - Include dashboard reporting
+  - Show how test/data dependencies when required can be handled
+  - Include security checks for library vulnerabilities, possibly code linting as well.
+  
+
+- Introduce **dynamic test input data support** - such as using template `xrequest.json` with a mustache library to support runtime values such as date time, unique user creation etc
+
+
+### Code Improvements (lower level detail)
+- Included as `TODO`s in codebase - such as:
+  - Pre / Post test suite setup and teardown tasks to be included such as configuring logging
+  - Specific values that should be extracted to an environment setup
+  
+### Sample Test Expansion
+- Include examples of POST, PUT, DELETE tests
+- Include authorisation examples if possible
+- Include negative test examples
 Build a couple of demo tests, include pipeline readiness (build, env extraction), structure for nested JSON, samples of non-trivial validations.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
 
-
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## Authors and Acknowledgment
+Danae Milton   
+With thanks to the [resources](https://reqres.in/) provided by [Ben Howdle](https://benhowdle.im/)
 
 ## License
-For open source projects, say how it is licensed.
+Only open source libraries have been used in the making of this project.  
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+
+
